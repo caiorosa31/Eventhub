@@ -1,0 +1,22 @@
+<%- include('../partials/header', { title, busca:'', usuario:null, admin }) %>
+<main class="container my-5">
+  <h1><%= title %></h1>
+  <a href="/admin/dashboard" class="btn btn-secondary mb-4">Voltar</a>
+  <a href="/admin/categories/new" class="btn btn-primary mb-4 ms-2">+ Nova Categoria</a>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% categories.forEach(cat => { %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><%= cat.nome %></h5>
+            <p class="card-text"><strong><%= cat.totalEventos %></strong> eventos</p>
+            <a href="/admin/categories/<%= cat.id %>/events" class="btn btn-outline-primary mt-auto">
+              Ver Eventos
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</main>
+<%- include('../partials/footer') %>

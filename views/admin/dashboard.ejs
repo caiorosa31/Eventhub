@@ -1,0 +1,45 @@
+<%- include('../partials/header', { title, busca: '', usuario: null }) %>
+
+<main class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Painel Admin</h1>
+    <a href="/admin/logout" class="btn btn-outline-danger">Logout</a>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-4 g-4 mb-5">
+    <div class="col">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Usuários</h5>
+          <p class="display-6 mb-0"><%= metrics.usuarios %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Eventos</h5>
+          <p class="display-6 mb-0"><%= metrics.eventos %></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Pedidos</h5>
+          <p class="display-6 mb-0"><%= metrics.pedidos %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Links rápidos de gerenciamento -->
+  <div class="list-group">
+    <a href="/admin/users"      class="list-group-item list-group-item-action">Gerenciar Usuários</a>
+    <a href="/admin/events"     class="list-group-item list-group-item-action">Gerenciar Eventos</a>
+    <a href="/admin/categories" class="list-group-item list-group-item-action">Gerenciar Categorias</a>
+    <a href="/admin/feedbacks"  class="list-group-item list-group-item-action">Ver Feedbacks</a>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

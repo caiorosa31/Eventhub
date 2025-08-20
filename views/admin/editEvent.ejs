@@ -1,0 +1,94 @@
+<%- include('../partials/header', { title, busca:'', usuario:null, admin }) %>
+
+<main class="container my-5">
+  <h1><%= title %></h1>
+  <a href="/admin/events" class="btn btn-secondary mb-3">Voltar</a>
+
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <form action="/admin/events/<%= event.id %>/edit" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="returnTo" value="<%= returnTo %>">
+    <div class="mb-3">
+      <label class="form-label">Título</label>
+      <input name="titulo" class="form-control" value="<%= event.titulo %>" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Descrição</label>
+      <textarea name="descricao" class="form-control" rows="4" required><%= event.descricao %></textarea>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <!-- Data/Hora corrigido -->
+      <div class="col-md-4">
+        <label class="form-label">Data/Hora</label>
+        <% 
+          // tenta extrair um valor válido para datetime-local
+          let dateVal = '';
+          const raw = event.dataHora || event.data_hora;
+          if (raw) {
+            const d = new Date(raw);
+            if (!isNaN(d)) {
+              dateVal = d.toISOString().slice(0,16);
+            }
+          }
+        %>
+        <input 
+          name="data_hora" 
+          type="datetime-local" 
+          class="form-control"
+          value="<%= dateVal %>" 
+          required
+        >
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Local</label>
+        <input name="local" class="form-control" value="<%= event.local %>">
+      </div>
+
+      <div class="col-md-4">
+        <label class="form-label">Categoria</label>
+        <select name="categoria_id" class="form-select" required>
+          <% categories.forEach(c => { %>
+            <option 
+              value="<%= c.id %>" 
+              <%= (c.id === (event.categoria_id || event.categoriaId)) ? 'selected' : '' %>
+            >
+              <%= c.nome %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-md-3">
+        <label class="form-label">Tipo</label>
+        <select name="tipo" class="form-select">
+          <option value="presencial" <%= event.tipo==='presencial'?'selected':'' %>>Presencial</option>
+          <option value="online"      <%= event.tipo==='online'?'selected':'' %>>Online</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Idade</label>
+        <select name="idade" class="form-select">
+          <option value="livre" <%= event.idade==='livre'?'selected':'' %>>Livre</option>
+          <option value="18"    <%= event.idade==='18'?'selected':'' %>>+18</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Imagem (opcional)</label>
+        <input name="imagem" type="file" class="form-control">
+      </div>
+    </div>
+
+    <button class="btn btn-primary">Salvar Alterações</button>
+  </form>
+</main>
+
+<%- include('../partials/footer') %>

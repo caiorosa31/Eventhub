@@ -1,0 +1,30 @@
+<%- include('../partials/header', { title, busca:'', usuario:null, admin }) %>
+<main class="container my-5">
+  <h1>Gerenciar Eventos</h1>
+  <a href="/admin/dashboard" class="btn btn-secondary mb-3">Voltar</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th><th>Título</th><th>Data/Hora</th><th>Local</th><th>Categoria</th><th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% events.forEach(ev => { %>
+        <tr>
+          <td><%= ev.id %></td>
+          <td><%= ev.titulo %></td>
+          <td><%= new Date(ev.dataHora).toLocaleString('pt-BR') %></td>
+          <td><%= ev.local %></td>
+          <td><%= ev.categoria %></td>
+          <td>
+            <a href="/admin/events/<%= ev.id %>/edit" class="btn btn-sm btn-primary">Editar</a>
+            <form action="/admin/events/<%= ev.id %>/delete" method="POST" class="d-inline" onsubmit="return confirm('Excluir evento?')">
+              <button class="btn btn-sm btn-danger">Excluir</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</main>
+<%- include('../partials/footer') %>

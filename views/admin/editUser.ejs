@@ -1,0 +1,16 @@
+<%- include('../partials/header', { title, busca:'', usuario:null, admin }) %>
+<main class="container my-5">
+  <h1 class="mb-4">Editar Usuário</h1>
+  <form action="/admin/users/<%= user.id %>/edit" method="POST" class="w-50">
+    <div class="mb-3">
+      <label class="form-label">Nome</label>
+      <input name="nome" type="text" class="form-control" value="<%= user.nome %>" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">E-mail</label>
+      <input name="email" type="email" class="form-control" value="<%= user.email %>" required>
+    </div>
+    <button class="btn btn-primary">Salvar</button>
+    <a href="/admin/users" class="btn btn-secondary ms-2">Cancelar</a>
+  </form>
+</main>

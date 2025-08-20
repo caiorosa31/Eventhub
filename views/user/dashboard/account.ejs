@@ -1,0 +1,25 @@
+<%- include('../../partials/header', { title: title }) %>
+
+<main class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Minha Conta</h1>
+    <a href="/" class="btn btn-primary">Ver Eventos</a>
+  </div>
+
+  <form action="/user/dashboard/account/delete" method="POST" class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" value="<%= usuario.nome %>" disabled>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">E-mail</label>
+      <input type="email" class="form-control" value="<%= usuario.email %>" disabled>
+    </div>
+    <div class="col-12 d-flex">
+      <button type="button" class="btn btn-outline-secondary me-2" onclick="location.href='/user/dashboard/account/edit'">Editar Conta</button>
+      <button type="submit" class="btn btn-danger">Deletar Conta</button>
+    </div>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

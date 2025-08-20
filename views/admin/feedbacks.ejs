@@ -1,0 +1,34 @@
+<%- include('../partials/header', { title, busca:'', usuario:null, admin }) %>
+<main class="container my-5">
+  <h1><%= title %></h1>
+  <a href="/admin/dashboard" class="btn btn-secondary mb-4">Voltar</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Usuário</th>
+        <th>Evento</th>
+        <th>Nota</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% feedbacks.forEach(fb => { %>
+        <tr>
+          <td><%= fb.id %></td>
+          <td><%= fb.usuario %></td>
+          <td><%= fb.evento %></td>
+          <td><%= fb.nota %>★</td>
+          <td>
+            <a href="/admin/feedbacks/<%= fb.id %>" class="btn btn-sm btn-outline-primary">Ver</a>
+            <form action="/admin/feedbacks/<%= fb.id %>/delete" method="POST" class="d-inline"
+                  onsubmit="return confirm('Excluir feedback #<%= fb.id %>?');">
+              <button class="btn btn-sm btn-outline-danger">Excluir</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</main>
+<%- include('../partials/footer') %>

@@ -1,0 +1,36 @@
+<%- include('../partials/header', { title, busca:'', usuario:null, admin }) %>
+
+<main class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Gerenciar Usuários</h1>
+    <a href="/admin/dashboard" class="btn btn-secondary">Voltar</a>
+  </div>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th class="text-end">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(u => { %>
+        <tr>
+          <td><%= u.id %></td>
+          <td><%= u.nome %></td>
+          <td><%= u.email %></td>
+          <td class="text-end">
+            <a
+              href="/admin/users/<%= u.id %>"
+              class="btn btn-sm btn-primary"
+            >
+              Ver Dados
+            </a>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</main>

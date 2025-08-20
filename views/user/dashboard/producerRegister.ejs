@@ -1,0 +1,73 @@
+<%- include('../../partials/header', { title: title, busca: busca, usuario: usuario }) %>
+
+<main class="container my-5">
+  <h1 class="mb-4"><%= title %></h1>
+  <form
+    action="/user/dashboard/producer"
+    method="POST"
+    class="row g-3"
+  >
+    <div class="col-md-6">
+      <label for="cpf" class="form-label">CPF</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cpf"
+        name="cpf"
+        placeholder="000.000.000-00"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="banco" class="form-label">Banco</label>
+      <input
+        type="text"
+        class="form-control"
+        id="banco"
+        name="banco"
+        placeholder="Nome do Banco"
+        required
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="agencia" class="form-label">Agência</label>
+      <input
+        type="text"
+        class="form-control"
+        id="agencia"
+        name="agencia"
+        placeholder="0000"
+        required
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="conta" class="form-label">Conta corrente</label>
+      <input
+        type="text"
+        class="form-control"
+        id="conta"
+        name="conta"
+        placeholder="000000-0"
+        required
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="endereco" class="form-label">Endereço</label>
+      <input
+        type="text"
+        class="form-control"
+        id="endereco"
+        name="endereco"
+        placeholder="Rua, Nº, Bairro, Cidade"
+        required
+      />
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">
+        Registrar como Produtor
+      </button>
+    </div>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

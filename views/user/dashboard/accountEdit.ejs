@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editar Conta - EventHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../../partials/header') %>
+  <main class="container my-5">
+    <div class="row">
+      <div class="col-md-3"><%- include('../../partials/dashboardMenu') %></div>
+      <div class="col-md-9">
+        <h3>Editar Conta</h3>
+        <form method="POST" action="/user/dashboard/account/edit">
+          <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" name="nome" class="form-control" value="<%= usuario.nome %>" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">E-mail</label>
+            <input type="email" name="email" class="form-control" value="<%= usuario.email %>" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+          <a href="/user/dashboard/account" class="btn btn-link">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </main>
+  <%- include('../../partials/footer') %>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<%- include('../../partials/header', { title: title, busca: busca, usuario: usuario }) %>
+
+<main class="container my-5">
+  <h1 class="mb-4">Feedbacks do Evento</h1>
+
+  <% if (feedbacks.length === 0) { %>
+    <div class="alert alert-info">Nenhum feedback ainda.</div>
+  <% } else { %>
+    <div class="list-group">
+      <% feedbacks.forEach(f => { %>
+        <div class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= f.comprador %></h5>
+          </div>
+          <p class="mb-1">
+            <% for (let i = 0; i < f.nota; i++) { %>
+              <span style="color:gold; font-size:1.2rem;">&#9733;</span>
+            <% } %>
+            <% for (let i = f.nota; i < 5; i++) { %>
+              <span style="color:#ddd; font-size:1.2rem;">&#9733;</span>
+            <% } %>
+          </p>
+          <p class="mb-0"><%= f.comentario %></p>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <a href="/user/dashboard/producer" class="btn btn-secondary mt-4">Voltar</a>
+</main>
+
+<%- include('../../partials/footer') %>

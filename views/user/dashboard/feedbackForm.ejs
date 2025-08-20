@@ -1,0 +1,33 @@
+<%- include('../../partials/header', { title, busca, usuario }) %>
+
+<main class="container my-5">
+  <h1 class="mb-4">Feedback para: <%= pedido.eventoTitulo %></h1>
+
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <form action="/user/dashboard/tickets/<%= pedido.id %>/feedback" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Nota (1 a 5 estrelas)</label>
+      <select name="nota" class="form-select" required>
+        <option value="">Selecione</option>
+        <option value="1">1 estrela</option>
+        <option value="2">2 estrelas</option>
+        <option value="3">3 estrelas</option>
+        <option value="4">4 estrelas</option>
+        <option value="5">5 estrelas</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Comentário</label>
+      <textarea name="comentario" rows="4" class="form-control" placeholder="Deixe seu comentário..." required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Enviar Feedback</button>
+    <a href="/user/dashboard/tickets" class="btn btn-secondary ms-2">Cancelar</a>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

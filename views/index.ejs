@@ -1,0 +1,34 @@
+<%- include('partials/header', { title: title }) %>
+
+<main class="container my-5">
+  <h1 class="mb-4">Eventos</h1>
+  <form class="d-flex mb-4" action="/" method="GET">
+    <input
+      name="busca"
+      class="form-control me-2 rounded-pill"
+      type="search"
+      placeholder="Buscar eventos..."
+      value="<%= busca %>"
+    />
+    <button class="btn btn-primary">Buscar</button>
+  </form>
+
+  <h3 class="fw-bold mb-4">Mais vistos nas últimas 24h</h3>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <% eventosPopulares.forEach(evento => { %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <img src="<%= evento.imagem %>" class="card-img-top" alt="<%= evento.titulo %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= evento.titulo %></h5>
+            <p class="card-text"><strong>Tipo:</strong> <%= evento.tipo %></p>
+            <p class="card-text text-truncate"><%= evento.descricao %></p>
+            <a href="/events/<%= evento.id %>" class="btn btn-outline-primary btn-sm">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

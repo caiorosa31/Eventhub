@@ -1,0 +1,148 @@
+<%- include('../../partials/header', { title: title, busca: busca, usuario: usuario }) %>
+
+<main class="container my-5">
+  <h1 class="mb-4"><%= title %></h1>
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+  <form
+    action="/user/dashboard/producer/edit-event/<%= event.id %>"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <!-- Tipo -->
+    <div class="mb-3">
+      <label class="form-label">Tipo de Evento</label>
+      <select name="tipo" class="form-select" required>
+        <option value="online"  <%= event.tipo==='online' ? 'selected' : '' %>>Online</option>
+        <option value="presencial" <%= event.tipo==='presencial' ? 'selected' : '' %>>Presencial</option>
+      </select>
+    </div>
+
+    <!-- Título -->
+    <div class="mb-3">
+      <label class="form-label">Título</label>
+      <input
+        type="text"
+        name="titulo"
+        class="form-control"
+        value="<%= event.titulo %>"
+        required
+      >
+    </div>
+
+    <!-- Descrição -->
+    <div class="mb-3">
+      <label class="form-label">Descrição</label>
+      <textarea
+        name="descricao"
+        rows="4"
+        class="form-control"
+        required
+      ><%= event.descricao %></textarea>
+    </div>
+
+    <!-- Local & Data/Hora -->
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Local</label>
+        <input
+          type="text"
+          name="local"
+          class="form-control"
+          value="<%= event.local %>"
+        >
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Data e Hora</label>
+        <input
+          type="datetime-local"
+          name="dataHora"
+          class="form-control"
+          value="<%= event.dataHora %>"
+          required
+        >
+      </div>
+    </div>
+
+    <!-- Idade e Categoria -->
+    <div class="row g-3 mb-3">
+      <div class="col-md-6">
+        <label class="form-label">Restrição de Idade</label>
+        <select name="idade" class="form-select" required>
+          <option value="0" <%= event.idade==='0' ? 'selected' : '' %>>Livre</option>
+          <option value="18" <%= event.idade==='18' ? 'selected' : '' %>>+18</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Categoria</label>
+        <select name="categoria_id" class="form-select" required>
+          <% categories.forEach(c => { %>
+            <option
+              value="<%= c.id %>"
+              <%= c.id===event.categoria_id ? 'selected' : '' %>
+            ><%= c.nome %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <!-- Imagem -->
+    <div class="mb-3">
+      <label class="form-label">Imagem (opcional)</label>
+      <% if (event.imagem) { %>
+        <div class="mb-2">
+          <img src="<%= event.imagem %>" alt="" class="img-thumbnail" style="max-width:200px;">
+        </div>
+      <% } %>
+      <input
+        type="file"
+        name="imagem"
+        accept="image/*"
+        class="form-control"
+      >
+    </div>
+
+    <hr>
+
+    <h5>Dados do Ingresso</h5>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <label class="form-label">Nome</label>
+        <input
+          type="text"
+          name="ingressoNome"
+          class="form-control"
+          value="<%= ticket.nome %>"
+          required
+        >
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Preço (R$)</label>
+        <input
+          type="number"
+          name="ingressoPreco"
+          class="form-control"
+          step="0.01"
+          value="<%= ticket.preco %>"
+          required
+        >
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Quantidade</label>
+        <input
+          type="number"
+          name="ingressoQtd"
+          class="form-control"
+          value="<%= ticket.quantidade %>"
+          required
+        >
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    <a href="/user/dashboard/producer" class="btn btn-secondary ms-2">Cancelar</a>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

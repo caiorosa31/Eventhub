@@ -1,0 +1,41 @@
+<%- include('../../partials/header', { title: title, busca: busca, usuario: usuario }) %>
+
+<main class="container my-5">
+  <h1 class="mb-4"><%= pedido.eventoTitulo %> — Ingresso #<%= pedido.id %></h1>
+
+  <div class="row g-4">
+    <!-- Visualização dos tickets -->
+    <div class="col-md-6">
+      <h5>Tickets</h5>
+      <div class="d-flex flex-wrap gap-3">
+        <% for(let i=0; i<pedido.quantidade; i++) { %>
+          <div class="border rounded p-3 text-center" style="width:150px;">
+            <img src="/images/ticket-icon.png" alt="Ticket" class="mb-2" style="width:64px;">
+            <p class="mb-0"><strong><%= pedido.ticketType %></strong></p>
+            <small>R$ <%= pedido.precoUnit %></small>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Dados do evento e comprador -->
+    <div class="col-md-6">
+      <h5>Detalhes do Evento</h5>
+      <p><strong>Data/Hora:</strong> <%= pedido.eventoData %></p>
+      <p><strong>Local:</strong> <%= pedido.eventoLocal %></p>
+
+      <h5 class="mt-4">Dados do Comprador</h5>
+      <p><strong>Nome:</strong> <%= pedido.comprador %></p>
+      <p><strong>Email:</strong> <%= pedido.email %></p>
+
+      <h5 class="mt-4">Dados da Compra</h5>
+      <p><strong>Quantidade:</strong> <%= pedido.quantidade %></p>
+      <p><strong>Valor Total:</strong> R$ <%= pedido.valorTotal %></p>
+      <p><strong>Data da Compra:</strong> <%= pedido.dataHora %></p>
+    </div>
+  </div>
+
+  <a href="/user/dashboard/tickets" class="btn btn-secondary mt-4">Voltar</a>
+</main>
+
+<%- include('../../partials/footer') %>

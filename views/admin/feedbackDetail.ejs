@@ -1,0 +1,17 @@
+<%- include('../partials/header', { title, busca:'', usuario:null, admin }) %>
+<main class="container my-5" style="max-width: 600px;">
+  <h1><%= title %></h1>
+  <a href="/admin/feedbacks" class="btn btn-secondary mb-3">Voltar</a>
+  <ul class="list-group mb-4">
+    <li class="list-group-item"><strong>ID:</strong> <%= fb.id %></li>
+    <li class="list-group-item"><strong>Usuário:</strong> <%= fb.usuario %> (<%= fb.email %>)</li>
+    <li class="list-group-item"><strong>Evento:</strong> <a href="/events/<%= fb.evento_id %>"><%= fb.evento %></a></li>
+    <li class="list-group-item"><strong>Nota:</strong> <%= fb.nota %>★</li>
+    <li class="list-group-item"><strong>Comentário:</strong><br><%= fb.comentario %></li>
+  </ul>
+  <form action="/admin/feedbacks/<%= fb.id %>/delete" method="POST"
+        onsubmit="return confirm('Excluir este feedback?');">
+    <button class="btn btn-danger">Excluir Feedback</button>
+  </form>
+</main>
+<%- include('../partials/footer') %>

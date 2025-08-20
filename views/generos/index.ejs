@@ -1,0 +1,103 @@
+<%- include('../partials/header', { title: title, busca: query.busca, usuario: usuario }) %>
+
+<main class="container my-5">
+  <h1 class="mb-4"><%= title %></h1>
+
+  <!-- FILTROS: barra horizontal compacta -->
+  <form action="/generos" method="GET" class="row gy-2 gx-2 align-items-end mb-4">
+    <!-- Busca livre -->
+    <div class="col-auto flex-grow-1">
+      <label class="form-label visually-hidden" for="busca">Buscar</label>
+      <input
+        type="text"
+        id="busca"
+        name="busca"
+        class="form-control"
+        placeholder="Pesquisar título ou descrição..."
+        value="<%= query.busca || '' %>"
+      />
+    </div>
+
+    <!-- Categoria (Todos + lista) -->
+    <div class="col-auto">
+      <label class="form-label visually-hidden" for="categoria_id">Categoria</label>
+      <select id="categoria_id" name="categoria_id" class="form-select">
+        <option value="">Todos</option>
+        <% categories.forEach(cat => { %>
+          <option
+            value="<%= cat.id %>"
+            <%= query.categoria_id==cat.id ? 'selected':'' %>
+          ><%= cat.nome %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- Tipo -->
+    <div class="col-auto">
+      <label class="form-label visually-hidden" for="type">Tipo</label>
+      <select id="type" name="type" class="form-select">
+        <option value="">Tipo</option>
+        <option value="presencial" <%= query.type=='presencial'?'selected':'' %>>
+          Presencial
+        </option>
+        <option value="online" <%= query.type=='online'?'selected':'' %>>
+          Online
+        </option>
+      </select>
+    </div>
+
+    <!-- Idade -->
+    <div class="col-auto">
+      <label class="form-label visually-hidden" for="idade">Idade</label>
+      <select id="idade" name="idade" class="form-select">
+        <option value="">Idade</option>
+        <option value="livre" <%= query.idade=='livre'?'selected':'' %>>Livre</option>
+        <option value="18"    <%= query.idade=='18'   ?'selected':'' %>>+18</option>
+      </select>
+    </div>
+
+    <!-- Botão de filtro -->
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+  </form>
+
+  <!-- LISTAGEM DE EVENTOS -->
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% if (events.length > 0) { %>
+      <% events.forEach(ev => { %>
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <% if (ev.imagem) { %>
+              <img
+                src="<%= ev.imagem %>"
+                class="card-img-top"
+                alt="<%= ev.titulo %>"
+              />
+            <% } %>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= ev.titulo %></h5>
+              <p class="card-text text-truncate"><%= ev.descricao %></p>
+              <div class="mt-auto">
+                <small class="text-muted d-block mb-2">
+                  <%= ev.categoria %> •
+                  <%= new Date(ev.dataHora).toLocaleDateString('pt-BR') %>
+                </small>
+                <a
+                  href="/events/<%= ev.id %>"
+                  class="btn btn-outline-primary btn-sm w-100"
+                >Ver detalhes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <div class="col-12">
+        <div class="alert alert-info">Nenhum evento encontrado.</div>
+      </div>
+    <% } %>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>
